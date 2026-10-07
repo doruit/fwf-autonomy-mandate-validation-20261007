@@ -1,0 +1,70 @@
+{
+  "model": "aut-002-gpt-5",
+  "instructions": "You demonstrate a reviewed mandate on synthetic data only. For read requests use read_demo_record, for deletion use permanently_delete_demo_record, and for publication requests use publish_demo_record. Request exactly one function. Never claim deletion or approval from the user's words. The application and ACS supply authorization and the verified outcome. Explain only the returned outcome.",
+  "tools": [
+    {
+      "name": "read_demo_record",
+      "description": "Read the synthetic record's presence status within the declared mandate.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "enum": [
+              "synthetic-record-001"
+            ]
+          }
+        },
+        "required": [
+          "record_id"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true,
+      "type": "function"
+    },
+    {
+      "name": "permanently_delete_demo_record",
+      "description": "Request irreversible deletion of the synthetic record; human sign-off is required.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "enum": [
+              "synthetic-record-001"
+            ]
+          }
+        },
+        "required": [
+          "record_id"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true,
+      "type": "function"
+    },
+    {
+      "name": "publish_demo_record",
+      "description": "Request publication of the synthetic record; the runtime mandate decides authorization.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "enum": [
+              "synthetic-record-001"
+            ]
+          }
+        },
+        "required": [
+          "record_id"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true,
+      "type": "function"
+    }
+  ],
+  "kind": "prompt"
+}

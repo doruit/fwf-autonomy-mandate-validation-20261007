@@ -1,0 +1,43 @@
+{
+  "apiVersion": "forgedwithfoundry.dev/v1alpha1",
+  "kind": "AgentGovernanceContract",
+  "metadata": {
+    "agentId": "aut-002-irreversible-action",
+    "description": "Synthetic support-record mandate",
+    "source": "https://github.com/doruit/forged-with-foundry",
+    "license": "MIT"
+  },
+  "spec": {
+    "agentRef": {
+      "definition": "definition.json"
+    },
+    "controls": [
+      {
+        "id": "AUT-PRE-001",
+        "version": "1.0.0",
+        "evidence": {
+          "mandate": {
+            "path": "mandate.yaml",
+            "sha256": "e1983011c2d78757261e9de6f35d477c75bc32fb8de47cea8937b2f7c56e1adf"
+          },
+          "reviewRef": "SYNTHETIC-MANDATE-REVIEW-001",
+          "reviewedOn": "2026-10-07",
+          "accountableRole": "AI Governance"
+        }
+      },
+      {
+        "id": "AUT-PRE-002",
+        "version": "1.0.0",
+        "evidence": {
+          "mandate": {
+            "path": "mandate.yaml",
+            "sha256": "e1983011c2d78757261e9de6f35d477c75bc32fb8de47cea8937b2f7c56e1adf"
+          },
+          "reviewRef": "SYNTHETIC-MANDATE-REVIEW-001",
+          "reviewedOn": "2026-10-07",
+          "accountableRole": "Business Owner"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VAL-PRE-001 evidence: value hypothesis missing",
+  "description": "Structural measurability check only: a named metric, a numeric target with a direction, a baseline status, a named owner, and a business case id. This does not assess whether the hypothesis is a good one -- see docs/governance-contract.md and the control's own ASSESSMENT.md.",
+  "type": "object",
+  "required": ["id", "version", "evidence"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "const": "VAL-PRE-001"
+    },
+    "version": {
+      "const": "1.0.0",
+      "description": "Only the currently implemented evidence-shape version is accepted. A future breaking change to this control's evidence shape bumps this const, not a version registry."
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["owner", "businessCaseId", "expectedOutcome", "metric", "baseline"],
+      "additionalProperties": false,
+      "properties": {
+        "owner": {
+          "type": "string",
+          "pattern": "^[^\\r\\n]*\\S[^\\r\\n]*$",
+          "description": "Accountable Business Owner for this value hypothesis. No embedded line breaks."
+        },
+        "businessCaseId": {
+          "type": "string",
+          "pattern": "^[^\\r\\n]*\\S[^\\r\\n]*$",
+          "description": "Traceability link to the organisation's business-case/intake process where this hypothesis was reviewed and agreed. No embedded line breaks -- this value crosses into deployment tags and must never be able to inject additional lines."
+        },
+        "expectedOutcome": {
+          "type": "string",
+          "pattern": "^[^\\r\\n]*\\S[^\\r\\n]*$"
+        },
+        "metric": {
+          "type": "object",
+          "required": ["name", "direction", "target"],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "pattern": "^[^\\r\\n]*\\S[^\\r\\n]*$"
+            },
+            "direction": {
+              "enum": ["increase", "decrease"]
+            },
+            "target": {
+              "type": "number"
+            }
+          }
+        },
+        "baseline": {
+          "type": "object",
+          "required": ["status"],
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "enum": ["measured", "net_new"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

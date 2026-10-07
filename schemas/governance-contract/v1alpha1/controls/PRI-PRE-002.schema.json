@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PRI-PRE-002 evidence: lawful basis or purpose missing",
+  "description": "Structural measurability check only: a recognized GDPR Article 6(1) lawful basis and a non-empty purpose reference. This does not assess whether the declared basis is legally correct for the actual processing -- see docs/governance-contract.md and the control's own ASSESSMENT.md. Independent of this control's existing Azure Policy demo (infra/policy-definition.bicep), which evaluates deployment-request tags directly and never reads this file.",
+  "type": "object",
+  "required": ["id", "version", "evidence"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "const": "PRI-PRE-002"
+    },
+    "version": {
+      "const": "1.0.0",
+      "description": "Only the currently implemented evidence-shape version is accepted. A future breaking change to this control's evidence shape bumps this const, not a version registry."
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["lawfulBasis", "purposeId"],
+      "additionalProperties": false,
+      "properties": {
+        "lawfulBasis": {
+          "enum": [
+            "consent",
+            "contract",
+            "legal_obligation",
+            "vital_interests",
+            "public_task",
+            "legitimate_interests"
+          ],
+          "description": "One of GDPR Article 6(1)'s six categories, used here as a small illustrative enum, not as legal advice or a complete organizational decision method."
+        },
+        "purposeId": {
+          "type": "string",
+          "pattern": "^[^\\r\\n]*\\S[^\\r\\n]*$",
+          "description": "Opaque reference to the organization's own record of processing activities. No embedded line breaks."
+        }
+      }
+    }
+  }
+}

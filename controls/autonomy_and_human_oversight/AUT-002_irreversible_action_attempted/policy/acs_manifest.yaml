@@ -1,0 +1,27 @@
+# ACS policy for AUT-002's synthetic irreversible action.
+agent_control_specification_version: "0.3.1-beta"
+metadata:
+  name: aut-002-irreversible-action
+  version: "1.0"
+policies:
+  irreversible_action:
+    type: custom
+    adapter: aut_002_irreversible_action_policy
+intervention_points:
+  pre_tool_call:
+    policy_target_kind: tool_call
+    policy:
+      id: irreversible_action
+    policy_target: $.tool_call.args
+  post_tool_call:
+    policy_target_kind: tool_call
+    policy:
+      id: irreversible_action
+    policy_target: $.tool_result
+tools:
+  read_demo_record:
+    clearance: public
+  publish_demo_record:
+    clearance: restricted
+  permanently_delete_demo_record:
+    clearance: restricted

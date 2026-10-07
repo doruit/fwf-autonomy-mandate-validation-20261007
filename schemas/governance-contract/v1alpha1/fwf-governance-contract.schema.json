@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Forged with Foundry Agent Governance Contract",
+  "description": "Envelope schema for a fwf-governance-contract instance (file name: governance.yaml, discovered at .fwf/agents/<agent-id>/governance.yaml). This is a Forged with Foundry community pattern, not a Microsoft Foundry or Agent Framework specification; Microsoft tooling does not discover or enforce it. See docs/governance-contract.md.",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "forgedwithfoundry.dev/v1alpha1"
+    },
+    "kind": {
+      "const": "AgentGovernanceContract"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Identity and provenance of this contract instance. agentId must equal the '<agent-id>' directory segment the contract was discovered under (.fwf/agents/<agent-id>/governance.yaml) -- enforced by the validator, not by this schema alone.",
+      "required": ["agentId", "description", "source", "license"],
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Kebab-case agent identifier; must equal the .fwf/agents/<agent-id>/ directory name."
+        },
+        "description": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "source": {
+          "type": "string",
+          "pattern": "^https?://\\S+$",
+          "description": "URL of the workload repository this contract belongs to."
+        },
+        "license": {
+          "type": "string",
+          "pattern": "\\S"
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "required": ["agentRef", "controls"],
+      "additionalProperties": false,
+      "properties": {
+        "agentRef": {
+          "type": "object",
+          "description": "Reference to this agent's real runtime/deployment definition, if any (for example a Microsoft Foundry hosted-agent agent.yaml). This contract complements that file; it never replaces or re-validates it.",
+          "required": ["definition"],
+          "additionalProperties": false,
+          "properties": {
+            "definition": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "controls": {
+          "type": "array",
+          "minItems": 1,
+          "description": "One entry per FwF governance control this agent declares evidence for. A workload only lists the controls that actually apply to it.",
+          "items": {
+            "oneOf": [
+              { "$ref": "./controls/VAL-PRE-001.schema.json" },
+              { "$ref": "./controls/VAL-PRE-002.schema.json" },
+              { "$ref": "./controls/PRI-PRE-001.schema.json" },
+              { "$ref": "./controls/PRI-PRE-002.schema.json" },
+              { "$ref": "./controls/PRI-PRE-003.schema.json" },
+              { "$ref": "./controls/AUT-002.schema.json" },
+              { "$ref": "./controls/AUT-PRE-001.schema.json" },
+              { "$ref": "./controls/AUT-PRE-002.schema.json" }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

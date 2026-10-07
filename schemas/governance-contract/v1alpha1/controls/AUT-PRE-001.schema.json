@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AUT-PRE-001 reviewed mandate reference",
+  "type": "object", "additionalProperties": false, "required": ["id", "version", "evidence"],
+  "properties": {
+    "id": {"const": "AUT-PRE-001"},
+    "version": {"const": "1.0.0"},
+    "evidence": {
+      "type": "object", "additionalProperties": false, "required": ["mandate", "accountableRole", "reviewRef", "reviewedOn"],
+      "properties": {
+        "mandate": {"$ref": "../autonomy-mandate.schema.json#/$defs/reference"},
+        "accountableRole": {"const": "AI Governance"},
+        "reviewRef": {"type": "string", "pattern": "\\S"},
+        "reviewedOn": {"type": "string", "format": "date"}
+      }
+    }
+  }
+}

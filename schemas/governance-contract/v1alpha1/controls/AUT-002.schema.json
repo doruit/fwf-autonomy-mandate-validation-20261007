@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AUT-002 evidence: irreversible action attempted",
+  "description": "Structural evidence for a runtime irreversible-action decision. Validation proves the evidence shape is complete, not that an external action was safe or that every agent action was guarded.",
+  "type": "object",
+  "required": ["id", "version", "evidence"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "const": "AUT-002"
+    },
+    "version": {
+      "const": "1.0.0"
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "decision",
+        "toolName",
+        "actionIdentity",
+        "executed",
+        "verified",
+        "timestamp",
+        "correlationId",
+        "accountableRole"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "decision": {
+          "enum": ["allow", "escalate", "deny"]
+        },
+        "toolName": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "actionIdentity": {
+          "type": ["string", "null"],
+          "pattern": "^sha256:[0-9a-f]+$"
+        },
+        "executed": {
+          "type": "boolean"
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "correlationId": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "accountableRole": {
+          "const": "Ops Manager"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "decision": { "const": "allow" } }
+          },
+          "then": {
+            "properties": {
+              "executed": { "const": true },
+              "verified": { "const": true },
+              "actionIdentity": { "type": "string" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "decision": { "enum": ["deny", "escalate"] } }
+          },
+          "then": {
+            "properties": {
+              "executed": { "const": false }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

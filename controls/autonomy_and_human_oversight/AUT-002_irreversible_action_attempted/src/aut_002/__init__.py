@@ -1,0 +1,1 @@
+"""AUT-002 irreversible-action governance demo."""

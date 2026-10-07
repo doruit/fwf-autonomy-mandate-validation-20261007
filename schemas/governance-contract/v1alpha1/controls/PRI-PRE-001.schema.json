@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PRI-PRE-001 evidence: DPIA required but missing",
+  "description": "Structural measurability check only: a DPIA status, and a non-empty evidence identifier once that status is approved. This does not assess whether the DPIA itself is adequate -- see docs/governance-contract.md and the control's own ASSESSMENT.md. Independent of this control's existing Azure Policy demo (infra/policy-definition.bicep), which evaluates deployment-request tags directly and never reads this file.",
+  "type": "object",
+  "required": ["id", "version", "evidence"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "const": "PRI-PRE-001"
+    },
+    "version": {
+      "const": "1.0.0",
+      "description": "Only the currently implemented evidence-shape version is accepted. A future breaking change to this control's evidence shape bumps this const, not a version registry."
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["dpiaStatus"],
+      "additionalProperties": false,
+      "properties": {
+        "dpiaStatus": {
+          "enum": ["approved", "pending", "not_required"],
+          "description": "Structural declaration only; approval authenticity is not verified here."
+        },
+        "dpiaEvidenceId": {
+          "type": "string",
+          "pattern": "^[^\\r\\n]*\\S[^\\r\\n]*$",
+          "description": "Opaque reference to the DPIA record in the organization's own privacy/records system. No embedded line breaks."
+        }
+      },
+      "if": {
+        "properties": { "dpiaStatus": { "const": "approved" } }
+      },
+      "then": {
+        "required": ["dpiaEvidenceId"]
+      }
+    }
+  }
+}

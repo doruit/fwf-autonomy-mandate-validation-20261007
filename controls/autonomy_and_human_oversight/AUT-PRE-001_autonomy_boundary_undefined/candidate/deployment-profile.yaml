@@ -1,0 +1,16 @@
+{
+  "expectedAgents": [
+    "aut-002-irreversible-action"
+  ],
+  "candidateDefinitions": {
+    "aut-002-irreversible-action": "definition.json"
+  },
+  "profiles": {
+    "autonomy-mandate-review": {
+      "requiredControls": [
+        "AUT-PRE-001",
+        "AUT-PRE-002"
+      ]
+    }
+  }
+}
