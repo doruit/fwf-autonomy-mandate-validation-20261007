@@ -18,7 +18,7 @@
         "evidence": {
           "mandate": {
             "path": "mandate.yaml",
-            "sha256": "e1983011c2d78757261e9de6f35d477c75bc32fb8de47cea8937b2f7c56e1adf"
+            "sha256": "ce32409c060b51d96f144cadbe8bddef24b2947901013715d3d782afef980887"
           },
           "reviewRef": "SYNTHETIC-MANDATE-REVIEW-001",
           "reviewedOn": "2026-10-07",
@@ -31,7 +31,7 @@
         "evidence": {
           "mandate": {
             "path": "mandate.yaml",
-            "sha256": "e1983011c2d78757261e9de6f35d477c75bc32fb8de47cea8937b2f7c56e1adf"
+            "sha256": "ce32409c060b51d96f144cadbe8bddef24b2947901013715d3d782afef980887"
           },
           "reviewRef": "SYNTHETIC-MANDATE-REVIEW-001",
           "reviewedOn": "2026-10-07",

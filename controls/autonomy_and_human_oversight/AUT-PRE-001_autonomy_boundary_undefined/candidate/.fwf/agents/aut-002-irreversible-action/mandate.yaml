@@ -4,8 +4,42 @@
   "purpose": "Inspect synthetic records and delete only the exact record authorized by an Ops Manager; never publish records.",
   "defaultDecision": "deny",
   "actions": [
-    {"toolName": "read_demo_record", "disposition": "allowed", "targets": ["synthetic-record-001"], "reversibility": "reversible", "impact": ["operational"], "riskReviewRef": "SYNTHETIC-RISK-READ-001"},
-    {"toolName": "permanently_delete_demo_record", "disposition": "approval_required", "targets": ["synthetic-record-001"], "reversibility": "irreversible", "impact": ["customer", "operational"], "riskReviewRef": "SYNTHETIC-RISK-DELETE-001", "approval": {"kind": "human_approval", "approverRole": "OpsManager", "ttlSeconds": 300, "evidenceRequired": ["action_identity", "decision", "executed", "verified"]}},
-    {"toolName": "publish_demo_record", "disposition": "prohibited", "targets": ["synthetic-record-001"], "reversibility": "irreversible", "impact": ["privacy"], "riskReviewRef": "SYNTHETIC-RISK-PUBLISH-001"}
+    {
+      "toolName": "read_demo_record",
+      "disposition": "allowed",
+      "targets": [
+        "synthetic-record-001"
+      ],
+      "reversibility": "reversible",
+      "impact": [
+        "operational"
+      ],
+      "riskReviewRef": "SYNTHETIC-RISK-READ-001"
+    },
+    {
+      "toolName": "permanently_delete_demo_record",
+      "disposition": "approval_required",
+      "targets": [
+        "synthetic-record-001"
+      ],
+      "reversibility": "irreversible",
+      "impact": [
+        "customer",
+        "operational"
+      ],
+      "riskReviewRef": "SYNTHETIC-RISK-DELETE-001"
+    },
+    {
+      "toolName": "publish_demo_record",
+      "disposition": "prohibited",
+      "targets": [
+        "synthetic-record-001"
+      ],
+      "reversibility": "irreversible",
+      "impact": [
+        "privacy"
+      ],
+      "riskReviewRef": "SYNTHETIC-RISK-PUBLISH-001"
+    }
   ]
 }
